@@ -1,0 +1,59 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
+    "import/no-unresolved": ["error", { "ignore": ["^meteor/", "^/"] }],
+    "import/no-named-as-default": 0,
+    "import/prefer-default-export": 0,
+    "global-require": 0,
+    "no-underscore-dangle": 0,
+    "no-nested-ternary": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "react/no-find-dom-node": 0,
+    "no-confusing-arrow": 0,
+    "no-mixed-operators": 0
+  },
+  "settings": {
+    "import/core-modules": [
+      "meteor/meteor",
+      "meteor/mongo",
+      "meteor/session",
+      "meteor/check",
+      "meteor/aldeed:simple-schema",
+      "meteor/underscore",
+      "meteor/dburles:google-maps",
+      "meteor/react-meteor-data",
+      "meteor/mdg:validated-method",
+      "meteor/http",
+      "meteor/email",
+      "meteor/meteorhacks:ssr",
+      "meteor/kadira:flow-router",
+      "meteor/underscorestring:underscore.string",
+      "meteor/mdg:validation-error",
+      "meteor/reactive-var",
+      "meteor/percolate:migrations"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "presets": [
+    "meteor",
+    "stage-0"
+  ]
+}
