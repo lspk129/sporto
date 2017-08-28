@@ -3,21 +3,29 @@ import PropTypes from 'prop-types';
 
 import { Athletes } from '../api/athletes';
 
-// Task component - represents a single todo item
-const Athlete = ({ athlete }) => {
-  const handleSubmit = () => Athletes.remove(athlete._id);
+const Athlete = ({ athlete: { _id, firstName, lastName, checked } }) => {
+  const handleSubmit = () => Athletes.remove(_id);
+
+  const toggleCheck = () =>
+    Athletes.update(_id, { $set: { checked: !checked } });
 
   return (
     <li>
-      {athlete.name}
+      {firstName} {lastName}
       <button onClick={handleSubmit}>Delete</button>
+      <input
+        type={'checkbox'}
+        checked={checked}
+        onClick={toggleCheck}
+      />
     </li>
   );
 };
 
 Athlete.propTypes = {
   athlete: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
   }).isRequired,
 };
 
