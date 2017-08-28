@@ -8,9 +8,11 @@
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "meteor-node-stubs": "~0.2.4",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.6.0",
+    "react-datepicker": "^0.53.0",
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
