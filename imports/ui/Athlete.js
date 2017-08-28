@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Athletes } from '../api/athletes';
 
-const Athlete = ({ athlete: { _id, firstName, lastName, checked } }) => {
+const Athlete = ({ athlete: { _id, firstName, lastName, birthDate, checked } }) => {
   const handleSubmit = () => Athletes.remove(_id);
 
   const toggleCheck = () =>
@@ -11,7 +11,7 @@ const Athlete = ({ athlete: { _id, firstName, lastName, checked } }) => {
 
   return (
     <li>
-      {firstName} {lastName}
+      {firstName} {lastName} {birthDate}
       <button onClick={handleSubmit}>Delete</button>
       <input
         type={'checkbox'}
