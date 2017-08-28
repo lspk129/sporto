@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Athletes } from '../api/athletes';
 
+
 class CreateAthlete extends Component {
   state = {
     firstName: '',
@@ -11,6 +12,7 @@ class CreateAthlete extends Component {
     birthDate: moment(),
     gender: '',
     sport: '',
+    couch: '',
   };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -23,14 +25,15 @@ class CreateAthlete extends Component {
       birthDate: this.state.birthDate.format('YYYY-MM-DD'),
       gender: this.state.gender,
       sport: this.state.sport,
+      couch: this.state.couch,
       createdAt: new Date(),
     });
-    this.setState({ firstName: '', lastName: '', birthDate: moment(), gender: '', sport: '' });
+    this.setState({ firstName: '', lastName: '', birthDate: moment(), gender: '', sport: '', couch: '' });
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} style={{ display: 'flex' }}>
         <input
           name={'firstName'}
           type={'text'}
@@ -70,6 +73,16 @@ class CreateAthlete extends Component {
           <option value="" disabled hidden>Sporto šaka</option>
           {['Dziudo', 'Boksas', 'Laisvosios imtynės', 'Graikų-Romėnų imtynės', 'Sambo', 'Sunkioji atletika']
             .map(sport => <option key={sport} value={sport}>{sport}</option>)
+          }
+        </select>
+        <select
+          name={'couch'}
+          value={this.state.sport}
+          onChange={this.handleChange}
+        >
+          <option value="" disabled hidden>Treneris</option>
+          {['Edvard Balcevič', 'Vladimiras Audickas', 'Edvard Malyško', 'Oleg Antoščenkov', 'Valdemaras Venckaitis', 'Valerijus Krivojus', 'Vladimir Gaibel', 'Ivanas Minkevičius', 'Stanislav Šestak', 'Eduard Špakov', 'Stanislavas Mižigurskis', 'Jan Romanovskij', 'Alebert Techov', 'Eduard Techov', 'Artūras Zaicevas', 'Svetlana Vetrova', 'Darius Jukonis', 'Algis Mečkovskis', 'Stasys Bazys', 'Anastasija  Michailova', 'Viačeslav Fiodorov', 'Jurijus Babenko', 'Svajūnas Polikevičius', 'Eduardas Rudas', 'Mindaugas Janulis']
+            .map(couch => <option key={couch} value={couch}>{couch}</option>)
           }
         </select>
 

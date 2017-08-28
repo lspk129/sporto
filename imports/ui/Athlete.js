@@ -11,13 +11,14 @@ const Athlete = ({
     birthDate,
     gender,
     sport,
+    couch,
   },
 }) => {
   const handleSubmit = () => Athletes.remove(_id);
 
   return (
     <li>
-      {firstName} {lastName}, {birthDate}, {gender}, {sport}
+      {firstName} {lastName}, {birthDate}, {gender}, {sport}, {couch}
       <button onClick={handleSubmit}>Delete</button>
     </li>
   );
