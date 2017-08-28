@@ -10,21 +10,22 @@ class CreateAthlete extends Component {
     lastName: '',
     birthDate: moment(),
     gender: '',
+    sport: '',
   };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   handleDateChange = date => this.setState({ birthDate: date });
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
     Athletes.insert({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       birthDate: this.state.birthDate.format('YYYY-MM-DD'),
       gender: this.state.gender,
+      sport: this.state.sport,
       createdAt: new Date(),
     });
-    this.setState({ firstName: '', lastName: '', birthDate: moment(), gender: '' });
+    this.setState({ firstName: '', lastName: '', birthDate: moment(), gender: '', sport: '' });
   }
 
   render() {
@@ -60,6 +61,16 @@ class CreateAthlete extends Component {
           <option value="" disabled hidden>Lytis</option>
           <option value="Vyras">Vyras</option>
           <option value="Moteris">Moteris</option>
+        </select>
+        <select
+          name={'sport'}
+          value={this.state.sport}
+          onChange={this.handleChange}
+        >
+          <option value="" disabled hidden>Sporto šaka</option>
+          {['Dziudo', 'Boksas', 'Laisvosios imtynės', 'Graikų-Romėnų imtynės', 'Sambo', 'Sunkioji atletika']
+            .map(sport => <option key={sport} value={sport}>{sport}</option>)
+          }
         </select>
 
         <input type={'submit'} value={'Submit'} />

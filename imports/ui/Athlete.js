@@ -10,23 +10,15 @@ const Athlete = ({
     lastName,
     birthDate,
     gender,
-    checked,
+    sport,
   },
 }) => {
   const handleSubmit = () => Athletes.remove(_id);
 
-  const toggleCheck = () =>
-    Athletes.update(_id, { $set: { checked: !checked } });
-
   return (
     <li>
-      {firstName} {lastName} {birthDate} {gender}
+      {firstName} {lastName}, {birthDate}, {gender}, {sport}
       <button onClick={handleSubmit}>Delete</button>
-      <input
-        type={'checkbox'}
-        checked={checked}
-        onClick={toggleCheck}
-      />
     </li>
   );
 };

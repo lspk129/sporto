@@ -10,7 +10,7 @@ const App = (props) => {
   return (
     <div>
       <header>
-        <h1>Sporto centro DB</h1>
+        <h2>Sporto centro DB</h2>
       </header>
 
       <CreateAthlete />
