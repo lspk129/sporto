@@ -107,6 +107,10 @@ class CreateAthlete extends Component {
             value={this.state.birthDate}
             onChange={this.handleDateChange}
             openToYearSelection
+            DateTimeFormat={Intl.DateTimeFormat}
+            cancelLabel="Anuliuoti"
+            locale="lt"
+            autoOk
           />
 
           <SelectField
