@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import styled from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Athletes } from '../api/athletes';
 
+const CreateForm = styled.form`
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-gap: 20px;
+  border: 1px solid #f3f3f3;
+  padding: 20px
+`;
 
 class CreateAthlete extends Component {
   state = {
@@ -33,7 +41,7 @@ class CreateAthlete extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} style={{ display: 'flex' }}>
+      <CreateForm onSubmit={this.handleSubmit}>
         <input
           name={'firstName'}
           type={'text'}
@@ -77,17 +85,23 @@ class CreateAthlete extends Component {
         </select>
         <select
           name={'couch'}
-          value={this.state.sport}
+          value={this.state.couch}
           onChange={this.handleChange}
         >
           <option value="" disabled hidden>Treneris</option>
-          {['Edvard Balcevič', 'Vladimiras Audickas', 'Edvard Malyško', 'Oleg Antoščenkov', 'Valdemaras Venckaitis', 'Valerijus Krivojus', 'Vladimir Gaibel', 'Ivanas Minkevičius', 'Stanislav Šestak', 'Eduard Špakov', 'Stanislavas Mižigurskis', 'Jan Romanovskij', 'Alebert Techov', 'Eduard Techov', 'Artūras Zaicevas', 'Svetlana Vetrova', 'Darius Jukonis', 'Algis Mečkovskis', 'Stasys Bazys', 'Anastasija  Michailova', 'Viačeslav Fiodorov', 'Jurijus Babenko', 'Svajūnas Polikevičius', 'Eduardas Rudas', 'Mindaugas Janulis']
+          {['Edvard Balcevič', 'Vladimiras Audickas', 'Edvard Malyško', 'Oleg Antoščenkov',
+            'Valdemaras Venckaitis', 'Valerijus Krivojus', 'Vladimir Gaibel',
+            'Ivanas Minkevičius', 'Stanislav Šestak', 'Eduard Špakov', 'Stanislavas Mižigurskis',
+            'Jan Romanovskij', 'Alebert Techov', 'Eduard Techov', 'Artūras Zaicevas',
+            'Svetlana Vetrova', 'Darius Jukonis', 'Algis Mečkovskis', 'Stasys Bazys',
+            'Anastasija  Michailova', 'Viačeslav Fiodorov', 'Jurijus Babenko',
+            'Svajūnas Polikevičius', 'Eduardas Rudas', 'Mindaugas Janulis']
             .map(couch => <option key={couch} value={couch}>{couch}</option>)
           }
         </select>
 
-        <input type={'submit'} value={'Submit'} />
-      </form>
+        <input type={'submit'} value={'Išsaugoti'} />
+      </CreateForm>
     );
   }
 }
