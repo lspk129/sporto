@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import Athlete from './Athlete';
 import CreateAthlete from './CreateAthlete';
 
@@ -14,20 +16,21 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <header>
-          <h2>Sporto centro DB</h2>
-        </header>
-        {this.state.show && <CreateAthlete />}
-        <input
-          type={'button'}
-          value={this.state.show ? 'Uždaryti' : 'Sukurti naują vartotoją'}
-          onClick={this.handleClick}
-        />
-        <ul>
-          {this.renderAthletes()}
-        </ul>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <header>
+            <h2>Sporto centro DB</h2>
+          </header>
+          {this.state.show && <CreateAthlete />}
+          <RaisedButton
+            label={this.state.show ? 'Uždaryti' : 'Sukurti naują vartotoją'}
+            onClick={this.handleClick}
+          />
+          <ul>
+            {this.renderAthletes()}
+          </ul>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

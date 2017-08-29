@@ -1,23 +1,53 @@
 import React, { Component } from 'react';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import styled from 'styled-components';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Athletes } from '../api/athletes';
 
-const CreateForm = styled.form`
+const StyledDatePicker = styled(DatePicker)`
+  align-self: end;
+`;
+
+const StyledRaisedButton = styled(RaisedButton)`
+  margin: 40px 10px 0;
+  justify-self: ${({ save }) => save ? 'end' : 'start'};
+`;
+
+const FormContent = styled.div`
   display: grid;
-  grid-template-columns: 200px 200px;
-  grid-gap: 20px;
-  border: 1px solid #f3f3f3;
-  padding: 20px
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+`;
+
+const Title = styled.h2`
+  display: grid;
+  justify-items: center;
+`;
+
+const Form = styled.form`
+  width: 700px;
+  margin: 50px;
+  padding: 20px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(255, 255, 255);
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+  border-radius: 2px;
 `;
 
 class CreateAthlete extends Component {
   state = {
     firstName: '',
     lastName: '',
-    birthDate: moment(),
+    birthDate: null,
     gender: '',
     sport: '',
     couch: '',
@@ -25,83 +55,102 @@ class CreateAthlete extends Component {
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
   handleDateChange = date => this.setState({ birthDate: date });
+  handleGenderChange = (event, index, value) => this.setState({ gender: value });
+  handleSportChange = (event, index, value) => this.setState({ sport: value });
+  handleCouchChange = (event, index, value) => this.setState({ couch: value });
+  handleDateChange = (event, date) => this.setState({ birthDate: date });
+
+  clearForm = () => this.setState({
+    firstName: '',
+    lastName: '',
+    birthDate: null,
+    gender: '',
+    sport: '',
+    couch: '',
+  });
+
   handleSubmit = (e) => {
     e.preventDefault();
     Athletes.insert({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      birthDate: this.state.birthDate.format('YYYY-MM-DD'),
+      birthDate: moment(this.state.birthDate).format('YYYY-MM-DD'),
       gender: this.state.gender,
       sport: this.state.sport,
       couch: this.state.couch,
       createdAt: new Date(),
     });
-    this.setState({ firstName: '', lastName: '', birthDate: moment(), gender: '', sport: '', couch: '' });
+    this.clearForm();
   }
 
   render() {
     return (
-      <CreateForm onSubmit={this.handleSubmit}>
-        <input
-          name={'firstName'}
-          type={'text'}
-          value={this.state.firstName}
-          onChange={this.handleChange}
-          placeholder={'Vardas'}
-        />
-        <input
-          name={'lastName'}
-          type={'text'}
-          value={this.state.lastName}
-          onChange={this.handleChange}
-          placeholder={'Pavarde'}
-        />
-        <DatePicker
-          selected={this.state.birthDate}
-          onChange={this.handleDateChange}
-          peekNextMonth
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-        />
-        <select
-          name={'gender'}
-          value={this.state.gender}
-          onChange={this.handleChange}
-        >
-          <option value="" disabled hidden>Lytis</option>
-          <option value="Vyras">Vyras</option>
-          <option value="Moteris">Moteris</option>
-        </select>
-        <select
-          name={'sport'}
-          value={this.state.sport}
-          onChange={this.handleChange}
-        >
-          <option value="" disabled hidden>Sporto šaka</option>
-          {['Dziudo', 'Boksas', 'Laisvosios imtynės', 'Graikų-Romėnų imtynės', 'Sambo', 'Sunkioji atletika']
-            .map(sport => <option key={sport} value={sport}>{sport}</option>)
-          }
-        </select>
-        <select
-          name={'couch'}
-          value={this.state.couch}
-          onChange={this.handleChange}
-        >
-          <option value="" disabled hidden>Treneris</option>
-          {['Edvard Balcevič', 'Vladimiras Audickas', 'Edvard Malyško', 'Oleg Antoščenkov',
-            'Valdemaras Venckaitis', 'Valerijus Krivojus', 'Vladimir Gaibel',
-            'Ivanas Minkevičius', 'Stanislav Šestak', 'Eduard Špakov', 'Stanislavas Mižigurskis',
-            'Jan Romanovskij', 'Alebert Techov', 'Eduard Techov', 'Artūras Zaicevas',
-            'Svetlana Vetrova', 'Darius Jukonis', 'Algis Mečkovskis', 'Stasys Bazys',
-            'Anastasija  Michailova', 'Viačeslav Fiodorov', 'Jurijus Babenko',
-            'Svajūnas Polikevičius', 'Eduardas Rudas', 'Mindaugas Janulis']
-            .map(couch => <option key={couch} value={couch}>{couch}</option>)
-          }
-        </select>
 
-        <input type={'submit'} value={'Išsaugoti'} />
-      </CreateForm>
+      <Form onSubmit={this.handleSubmit}>
+        <Title>Sportininko anketa</Title>
+        <FormContent>
+          <TextField
+            name={'firstName'}
+            value={this.state.firstName}
+            onChange={this.handleChange}
+            floatingLabelText={'Vardas'}
+          />
+          <TextField
+            name={'lastName'}
+            value={this.state.lastName}
+            onChange={this.handleChange}
+            floatingLabelText={'Pavarde'}
+          />
+
+          <StyledDatePicker
+            hintText="Gimimo metai"
+            value={this.state.birthDate}
+            onChange={this.handleDateChange}
+            openToYearSelection
+          />
+
+          <SelectField
+            floatingLabelText="Lytis"
+            value={this.state.gender}
+            onChange={this.handleGenderChange}
+          >
+            <MenuItem value={'Vyras'} primaryText={'Vyras'} />
+            <MenuItem value={'Moteris'} primaryText={'Moteris'} />
+          </SelectField>
+
+          <SelectField
+            floatingLabelText="Sporto šaka"
+            value={this.state.sport}
+            onChange={this.handleSportChange}
+          >
+            {['Dziudo', 'Boksas', 'Laisvosios imtynės', 'Graikų-Romėnų imtynės',
+              'Sambo', 'Sunkioji atletika']
+              .map(sport => <MenuItem key={sport} value={sport} primaryText={sport} />)
+            }
+          </SelectField>
+
+          <SelectField
+            floatingLabelText="Treneris"
+            value={this.state.couch}
+            onChange={this.handleCouchChange}
+          >
+            {['Edvard Balcevič', 'Vladimiras Audickas', 'Edvard Malyško', 'Oleg Antoščenkov',
+              'Valdemaras Venckaitis', 'Valerijus Krivojus', 'Vladimir Gaibel',
+              'Ivanas Minkevičius', 'Stanislav Šestak', 'Eduard Špakov', 'Stanislavas Mižigurskis',
+              'Jan Romanovskij', 'Alebert Techov', 'Eduard Techov', 'Artūras Zaicevas',
+              'Svetlana Vetrova', 'Darius Jukonis', 'Algis Mečkovskis', 'Stasys Bazys',
+              'Anastasija  Michailova', 'Viačeslav Fiodorov', 'Jurijus Babenko',
+              'Svajūnas Polikevičius', 'Eduardas Rudas', 'Mindaugas Janulis']
+              .map(couch => <MenuItem key={couch} value={couch} primaryText={couch} />)
+            }
+          </SelectField>
+        </FormContent>
+        <FormContent>
+          <StyledRaisedButton save primary label={'Išsaugoti'} type={'submit'} />
+          <StyledRaisedButton secondary label={'Išvalyti'} onClick={this.clearForm} />
+        </FormContent>
+      </Form>
+
     );
   }
 }
