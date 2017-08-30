@@ -39,6 +39,10 @@ Athlete.propTypes = {
   athlete: PropTypes.shape({
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
+    birthDate: PropTypes.string.isRequired,
+    gender: PropTypes.string.isRequired,
+    sport: PropTypes.string.isRequired,
+    couch: PropTypes.string.isRequired,
   }).isRequired,
 };
 
