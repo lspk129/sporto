@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow } from 'material-ui/Table';
 import Athlete from './Athlete';
 import CreateAthlete from './CreateAthlete';
+
+const Section = styled.div`
+  padding: ${({ contactForm }) => contactForm ? '20px 0' : '20px'};
+`;
 
 class App extends Component {
   state = { show: false };
@@ -17,29 +24,41 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <header>
-            <h2>Sporto centro DB</h2>
-          </header>
-          {this.state.show && <CreateAthlete />}
-          <RaisedButton
-            label={this.state.show ? 'Uždaryti' : 'Sukurti naują vartotoją'}
-            onClick={this.handleClick}
+        <Section>
+          <AppBar
+            title="Sporto centras"
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
-          <ul>
-            {this.renderAthletes()}
-          </ul>
-        </div>
+          <Section contactForm>
+            {this.state.show && <CreateAthlete />}
+            <RaisedButton
+              label={this.state.show ? 'Uždaryti' : 'Sukurti naują sportininką'}
+              onClick={this.handleClick}
+            />
+          </Section>
+          <Table>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn>Vardas</TableHeaderColumn>
+                <TableHeaderColumn>Gimimo metai</TableHeaderColumn>
+                <TableHeaderColumn>Lytis</TableHeaderColumn>
+                <TableHeaderColumn>Sporto šaka</TableHeaderColumn>
+                <TableHeaderColumn>Treneris</TableHeaderColumn>
+                <TableHeaderColumn>Redaguoti</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {this.renderAthletes()}
+            </TableBody>
+          </Table>
+        </Section>
       </MuiThemeProvider>
     );
   }
 }
 
 App.propTypes = {
-  athletes: PropTypes.arrayOf(PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-  })).isRequired,
+  athletes: PropTypes.arrayOf(String).isRequired,
 };
 
 export default App;

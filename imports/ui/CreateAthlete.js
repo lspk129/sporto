@@ -14,11 +14,16 @@ const StyledDatePicker = styled(DatePicker)`
 `;
 
 const StyledRaisedButton = styled(RaisedButton)`
-  margin: 40px 10px 0;
-  justify-self: ${({ save }) => save ? 'end' : 'start'};
+  margin: 0 10px;
 `;
 
-const FormContent = styled.div`
+const ButtonSection = styled.div`
+  margin: 40px 10px 0;
+  display: flex;
+  justify-content: center;
+`;
+
+const FormSection = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
@@ -31,7 +36,7 @@ const Title = styled.h2`
 
 const Form = styled.form`
   width: 700px;
-  margin: 50px;
+  margin: 50px 0;
   padding: 20px;
   color: rgba(0, 0, 0, 0.87);
   background-color: rgb(255, 255, 255);
@@ -88,7 +93,7 @@ class CreateAthlete extends Component {
 
       <Form onSubmit={this.handleSubmit}>
         <Title>Sportininko anketa</Title>
-        <FormContent>
+        <FormSection>
           <TextField
             name={'firstName'}
             value={this.state.firstName}
@@ -99,7 +104,7 @@ class CreateAthlete extends Component {
             name={'lastName'}
             value={this.state.lastName}
             onChange={this.handleChange}
-            floatingLabelText={'Pavarde'}
+            floatingLabelText={'Pavardė'}
           />
 
           <StyledDatePicker
@@ -148,11 +153,11 @@ class CreateAthlete extends Component {
               .map(couch => <MenuItem key={couch} value={couch} primaryText={couch} />)
             }
           </SelectField>
-        </FormContent>
-        <FormContent>
-          <StyledRaisedButton save primary label={'Išsaugoti'} type={'submit'} />
+        </FormSection>
+        <ButtonSection>
+          <StyledRaisedButton primary label={'Išsaugoti'} type={'submit'} />
           <StyledRaisedButton secondary label={'Išvalyti'} onClick={this.clearForm} />
-        </FormContent>
+        </ButtonSection>
       </Form>
 
     );
